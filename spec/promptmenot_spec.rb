@@ -75,4 +75,14 @@ RSpec.describe Promptmenot do
       expect(described_class.configuration.sensitivity).to eq(:medium)
     end
   end
+
+  describe ".root" do
+    it "returns the gem root directory" do
+      expect(described_class.root).to eq(File.expand_path("..", __dir__).sub("/spec", ""))
+    end
+
+    it "contains the lib directory" do
+      expect(Dir.exist?(File.join(described_class.root, "lib"))).to be true
+    end
+  end
 end

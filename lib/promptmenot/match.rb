@@ -26,10 +26,6 @@ module Promptmenot
       pattern.sensitivity
     end
 
-    def overlaps?(other)
-      position.cover?(other.position.begin) || other.position.cover?(position.begin)
-    end
-
     def ==(other)
       other.is_a?(Match) &&
         pattern_name == other.pattern_name &&

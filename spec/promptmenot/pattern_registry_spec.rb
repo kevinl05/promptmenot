@@ -30,6 +30,19 @@ RSpec.describe Promptmenot::PatternRegistry do
     end
   end
 
+  describe "#register_all" do
+    it "registers multiple patterns at once" do
+      new_registry = described_class.new
+      new_registry.register_all([low_pattern, medium_pattern, high_pattern])
+      expect(new_registry.size).to eq(3)
+    end
+
+    it "skips duplicates when registering all" do
+      registry.register_all([low_pattern, medium_pattern])
+      expect(registry.size).to eq(3)
+    end
+  end
+
   describe "#for_sensitivity" do
     it "returns only patterns active at :low" do
       expect(registry.for_sensitivity(:low)).to contain_exactly(low_pattern)

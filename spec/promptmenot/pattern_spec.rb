@@ -25,15 +25,15 @@ RSpec.describe Promptmenot::Pattern do
     end
 
     it "raises on invalid sensitivity" do
-      expect {
+      expect do
         described_class.new(name: :x, category: :x, regex: /x/, sensitivity: :invalid)
-      }.to raise_error(Promptmenot::PatternError, /Invalid sensitivity/)
+      end.to raise_error(Promptmenot::PatternError, /Invalid sensitivity/)
     end
 
     it "raises on invalid confidence" do
-      expect {
+      expect do
         described_class.new(name: :x, category: :x, regex: /x/, confidence: :invalid)
-      }.to raise_error(Promptmenot::PatternError, /Invalid confidence/)
+      end.to raise_error(Promptmenot::PatternError, /Invalid confidence/)
     end
   end
 
@@ -104,6 +104,39 @@ RSpec.describe Promptmenot::Pattern do
     it "differs from pattern with different name" do
       other = described_class.new(name: :other, category: :test, regex: /test\s+injection/i)
       expect(pattern).not_to eq(other)
+    end
+
+    it "differs from non-Pattern objects" do
+      expect(pattern).not_to eq("not a pattern")
+    end
+  end
+
+  describe "#eql?" do
+    it "behaves the same as ==" do
+      other = described_class.new(name: :test_pattern, category: :test, regex: /different/)
+      expect(pattern.eql?(other)).to be true
+    end
+  end
+
+  describe "#hash" do
+    it "returns same hash for equal patterns" do
+      other = described_class.new(name: :test_pattern, category: :test, regex: /different/)
+      expect(pattern.hash).to eq(other.hash)
+    end
+
+    it "can be used as hash key" do
+      hash = { pattern => "value" }
+      other = described_class.new(name: :test_pattern, category: :test, regex: /different/)
+      expect(hash[other]).to eq("value")
+    end
+
+    it "works in a Set" do
+      require "set"
+      set = Set.new([pattern])
+      other = described_class.new(name: :test_pattern, category: :test, regex: /different/)
+      expect(set).to include(other)
+      set.add(other)
+      expect(set.size).to eq(1)
     end
   end
 end
