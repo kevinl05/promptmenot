@@ -34,7 +34,7 @@ module Promptmenot
 
       count = matches.size
       cats = categories_detected.map { |c| c.to_s.tr("_", " ") }.join(", ")
-      "Detected #{count} potential prompt injection #{"pattern".dup.concat(count > 1 ? "s" : "")} " \
+      "Detected #{count} potential prompt injection pattern#{"s" if count > 1} " \
         "in categories: #{cats}."
     end
   end

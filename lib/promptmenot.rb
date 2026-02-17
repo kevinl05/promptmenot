@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "monitor"
 require "active_support/lazy_load_hooks"
 
 require_relative "promptmenot/version"
@@ -21,23 +22,29 @@ require_relative "promptmenot/sanitizer"
 require_relative "promptmenot/validator"
 
 module Promptmenot
+  @monitor = Monitor.new
+
   class << self
     def configuration
-      @configuration ||= Configuration.new
+      @monitor.synchronize { @configuration ||= Configuration.new }
     end
 
     def configure
-      yield(configuration)
-      register_custom_patterns
+      @monitor.synchronize do
+        yield(configuration)
+        register_custom_patterns
+      end
     end
 
     def registry
-      @registry ||= build_registry
+      @monitor.synchronize { @registry ||= build_registry }
     end
 
     def reset!
-      @configuration = Configuration.new
-      @registry = nil
+      @monitor.synchronize do
+        @configuration = Configuration.new
+        @registry = nil
+      end
     end
 
     def root

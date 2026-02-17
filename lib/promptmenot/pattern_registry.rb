@@ -1,15 +1,17 @@
 # frozen_string_literal: true
 
+require "set"
+
 module Promptmenot
   class PatternRegistry
     include Enumerable
 
     def initialize
-      @patterns = []
+      @patterns = Set.new
     end
 
     def register(pattern)
-      @patterns << pattern unless @patterns.include?(pattern)
+      @patterns.add(pattern)
     end
 
     def register_all(patterns)
