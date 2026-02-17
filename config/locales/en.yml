@@ -1,0 +1,4 @@
+en:
+  errors:
+    messages:
+      prompt_injection_detected: "contains potentially unsafe prompt injection content"
