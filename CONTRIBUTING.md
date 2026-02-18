@@ -5,7 +5,7 @@ We'd love your help improving PromptMeNot! Here's how to contribute:
 ## Development Setup
 
 ```bash
-git clone https://github.com/promptmenot/promptmenot.git
+git clone https://github.com/kevinl05/promptmenot.git
 cd promptmenot
 bundle install
 ```

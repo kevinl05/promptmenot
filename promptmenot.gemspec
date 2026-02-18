@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description = "A Ruby on Rails gem that detects and sanitizes prompt injection attacks. " \
                      "Protects against direct injection (users hacking your LLMs via form inputs) " \
                      "and indirect injection (malicious prompts stored for other LLMs to scrape)."
-  spec.homepage = "https://github.com/promptmenot/promptmenot"
+  spec.homepage = "https://github.com/kevinl05/promptmenot"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.0"
 
