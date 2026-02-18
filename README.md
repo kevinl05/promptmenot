@@ -5,10 +5,35 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Ruby 3.0+](https://img.shields.io/badge/Ruby-3.0%2B-red.svg)](https://www.ruby-lang.org/)
 
-Detect and sanitize prompt injection attacks in user-submitted text. Protects Rails apps against:
+A Ruby gem that detects and sanitizes prompt injection attacks in user-submitted text. Built for Rails apps that pass user input to LLMs.
 
-- **Direct injection** -- users trying to hack your LLMs via form inputs
-- **Indirect injection** -- users storing malicious prompts in profiles so other LLMs that scrape your site get compromised
+### What it catches
+
+- **Direct injection** -- users trying to override LLM instructions via form inputs (e.g., "ignore all previous instructions")
+- **Indirect injection** -- malicious prompts stored in user content (profiles, comments, posts) that target LLMs scraping or processing your site
+- **Delimiter attacks** -- fake system tokens, ChatML tags, and XML/markdown boundaries injected into text
+- **Obfuscation** -- Base64-encoded payloads, zero-width characters, hex escapes, and other encoding tricks
+
+### What it doesn't do
+
+PromptMeNot is a **supplemental defense layer**, not a silver bullet. It uses pattern matching to catch known injection techniques, which means:
+
+- **It can be bypassed.** Sufficiently creative or novel attacks may evade detection. Prompt injection is an evolving problem and no regex-based approach will catch everything.
+- **It's not a replacement for other safeguards.** You should still use system prompts with clear boundaries, output filtering, least-privilege API access, and human review where appropriate.
+- **It won't prevent all LLM misuse.** It focuses on the input side -- it doesn't monitor or constrain what your LLM outputs.
+
+Think of it like input validation for SQL injection: you still use parameterized queries, but rejecting `'; DROP TABLE users--` at the front door doesn't hurt. PromptMeNot is that front door check for prompt injection.
+
+### Defense in depth
+
+For production apps, pair PromptMeNot with other layers:
+
+- **Structural isolation** -- wrap user input in XML delimiters (`<user_input>...</user_input>`) in your system prompt so the LLM treats it as data, not instructions
+- **System prompt design** -- explicitly tell the model to ignore instructions found inside user content
+- **Output validation** -- check LLM responses for leaked system prompts, PII, or unexpected behavior before returning them to users
+- **Least-privilege access** -- restrict what your LLM can do (read-only DB access, scoped API keys, no `eval`)
+
+PromptMeNot handles the fast, cheap first pass -- catching the known attacks before they cost you an API call. The layers above handle the rest.
 
 ## Installation
 
