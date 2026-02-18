@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 require "promptmenot"
+require "i18n"
+
+I18n.load_path += Dir[File.join(Promptmenot.root, "config", "locales", "**", "*.yml")]
+I18n.default_locale = :en
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|

@@ -21,7 +21,7 @@ module Promptmenot
 
       register(
         name: :forget_instructions,
-        regex: /\bforget\s+(all\s+)?(previous|prior|above|earlier|your)\s+(instructions|directives|rules|prompts|context)\b/i,
+        regex: /\bforget\s+(all\s+)?(your\s+)?(previous|prior|above|earlier)\s+(instructions|directives|rules|prompts|context)\b/i,
         sensitivity: :low,
         confidence: :high
       )
