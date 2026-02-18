@@ -122,6 +122,10 @@ Patterns use contextual qualifiers to minimize false positives:
 - "from now on" requires imperative "you must/will" -- "from now on I'll work from home" passes
 - Broad patterns are placed at `:high`/`:paranoid` sensitivity so they don't fire at default settings
 
+## Contributors
+
+- **Kevin L** ([@kevinl05](https://github.com/kevinl05)) - Creator & Maintainer
+
 ## License
 
 MIT License. See [LICENSE.txt](LICENSE.txt).
