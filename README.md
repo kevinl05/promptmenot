@@ -5,22 +5,28 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Ruby 3.0+](https://img.shields.io/badge/Ruby-3.0%2B-red.svg)](https://www.ruby-lang.org/)
 
-A Ruby gem that detects and sanitizes prompt injection attacks in user-submitted text. Built for Rails apps that pass user input to LLMs.
+Detect and sanitize prompt injection attacks in Rails apps. Protects against direct injection (users hacking your LLMs via form inputs) and indirect injection (malicious prompts stored in user content for other LLMs to scrape). ~60 detection patterns across 6 attack categories with configurable sensitivity levels.
+
+---
 
 ### What it catches
 
-- **Direct injection** -- users trying to override LLM instructions via form inputs (e.g., "ignore all previous instructions")
-- **Indirect injection** -- malicious prompts stored in user content (profiles, comments, posts) that target LLMs scraping or processing your site
-- **Delimiter attacks** -- fake system tokens, ChatML tags, and XML/markdown boundaries injected into text
-- **Obfuscation** -- Base64-encoded payloads, zero-width characters, hex escapes, and other encoding tricks
+| Attack type | Description |
+|---|---|
+| **Direct injection** | Users trying to override LLM instructions via form inputs (e.g., "ignore all previous instructions") |
+| **Indirect injection** | Malicious prompts stored in profiles, comments, or posts that target LLMs scraping or processing your site |
+| **Delimiter attacks** | Fake system tokens, ChatML tags, and XML/markdown boundaries injected into text |
+| **Obfuscation** | Base64-encoded payloads, zero-width characters, hex escapes, and other encoding tricks |
 
 ### What it doesn't do
 
-PromptMeNot is a **supplemental defense layer**, not a silver bullet. It uses pattern matching to catch known injection techniques, which means:
+> PromptMeNot is a **supplemental defense layer**, not a silver bullet.
+
+It uses pattern matching to catch known injection techniques, which means:
 
 - **It can be bypassed.** Sufficiently creative or novel attacks may evade detection. Prompt injection is an evolving problem and no regex-based approach will catch everything.
 - **It's not a replacement for other safeguards.** You should still use system prompts with clear boundaries, output filtering, least-privilege API access, and human review where appropriate.
-- **It won't prevent all LLM misuse.** It focuses on the input side -- it doesn't monitor or constrain what your LLM outputs.
+- **It won't prevent all LLM misuse.** It focuses on the input side. It doesn't monitor or constrain what your LLM outputs.
 
 Think of it like input validation for SQL injection: you still use parameterized queries, but rejecting `'; DROP TABLE users--` at the front door doesn't hurt. PromptMeNot is that front door check for prompt injection.
 
@@ -28,12 +34,16 @@ Think of it like input validation for SQL injection: you still use parameterized
 
 For production apps, pair PromptMeNot with other layers:
 
-- **Structural isolation** -- wrap user input in XML delimiters (`<user_input>...</user_input>`) in your system prompt so the LLM treats it as data, not instructions
-- **System prompt design** -- explicitly tell the model to ignore instructions found inside user content
-- **Output validation** -- check LLM responses for leaked system prompts, PII, or unexpected behavior before returning them to users
-- **Least-privilege access** -- restrict what your LLM can do (read-only DB access, scoped API keys, no `eval`)
+| Layer | What to do |
+|---|---|
+| **Structural isolation** | Wrap user input in XML delimiters (`<user_input>...</user_input>`) so the LLM treats it as data, not instructions |
+| **System prompt design** | Explicitly tell the model to ignore instructions found inside user content |
+| **Output validation** | Check LLM responses for leaked system prompts, PII, or unexpected behavior before returning them to users |
+| **Least-privilege access** | Restrict what your LLM can do (read-only DB access, scoped API keys, no `eval`) |
 
-PromptMeNot handles the fast, cheap first pass -- catching the known attacks before they cost you an API call. The layers above handle the rest.
+PromptMeNot handles the fast, cheap first pass. It catches the known attacks before they cost you an API call. The layers above handle the rest.
+
+---
 
 ## Installation
 
@@ -56,10 +66,10 @@ rails generate promptmenot:install  # creates config/initializers/promptmenot.rb
 
 ```ruby
 class UserProfile < ApplicationRecord
-  # Reject mode (default) -- adds validation error
+  # Reject mode (default) — adds validation error
   validates :bio, prompt_safety: true
 
-  # Sanitize mode -- strips malicious content, no error
+  # Sanitize mode — strips malicious content, no error
   validates :about_me, prompt_safety: { mode: :sanitize }
 
   # Custom sensitivity
@@ -120,7 +130,7 @@ end
 
 ## Sensitivity Levels
 
-Sensitivity controls which patterns are active. Each pattern declares a minimum sensitivity level -- it only runs when the requested sensitivity is at or above that level.
+Sensitivity controls which patterns are active. Each pattern declares a minimum sensitivity level and only runs when the requested sensitivity is at or above that level.
 
 | Pattern sensitivity | Active at `:low` | `:medium` | `:high` | `:paranoid` |
 |---|---|---|---|---|
@@ -146,10 +156,10 @@ Sensitivity controls which patterns are active. Each pattern declares a minimum 
 
 Patterns use contextual qualifiers to minimize false positives:
 
-- "ignore" alone is fine -- "ignore **previous instructions**" is flagged
-- "act as" requires malicious qualifiers -- "act as a consultant" passes
-- "you are now" requires AI/restriction qualifiers -- "you are now subscribed" passes
-- "from now on" requires imperative "you must/will" -- "from now on I'll work from home" passes
+- "ignore" alone is fine, but "ignore **previous instructions**" is flagged
+- "act as" requires malicious qualifiers, so "act as a consultant" passes
+- "you are now" requires AI/restriction qualifiers, so "you are now subscribed" passes
+- "from now on" requires imperative "you must/will", so "from now on I'll work from home" passes
 - Broad patterns are placed at `:high`/`:paranoid` sensitivity so they don't fire at default settings
 
 ## Contributing
