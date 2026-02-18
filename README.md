@@ -1,5 +1,10 @@
 # PromptMeNot
 
+[![Build Status](https://github.com/kevinl05/promptmenot/actions/workflows/ci.yml/badge.svg)](https://github.com/kevinl05/promptmenot/actions/workflows/ci.yml)
+[![Gem Version](https://badge.fury.io/rb/promptmenot.svg)](https://rubygems.org/gems/promptmenot)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Ruby 3.0+](https://img.shields.io/badge/Ruby-3.0%2B-red.svg)](https://www.ruby-lang.org/)
+
 Detect and sanitize prompt injection attacks in user-submitted text. Protects Rails apps against:
 
 - **Direct injection** -- users trying to hack your LLMs via form inputs
