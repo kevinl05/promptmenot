@@ -1,10 +1,10 @@
 # Agents Reference Guide
 
-This document provides operational knowledge for AI agents and developers working on promptmenot.
+This document provides operational knowledge for AI agents and developers working on PromptMeNot.
 
 ## Project Overview
 
-- **Project Name:** promptmenot
+- **Project Name:** PromptMeNot
 - **Type:** Ruby gem (Rails plugin)
 - **Framework:** ActiveModel / ActiveSupport (>= 6.0)
 - **Language:** Ruby >= 3.0

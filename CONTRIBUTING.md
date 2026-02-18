@@ -1,6 +1,6 @@
-# Contributing to Promptmenot
+# Contributing to PromptMeNot
 
-We'd love your help improving Promptmenot! Here's how to contribute:
+We'd love your help improving PromptMeNot! Here's how to contribute:
 
 ## Development Setup
 
