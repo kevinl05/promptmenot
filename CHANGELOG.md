@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.3] - 2026-02-17
+
+### Fixed
+
+- Ruby 3.0+ compatibility by relaxing ActiveSupport/ActiveModel constraints to allow v7.x
+
 ## [0.1.0] - 2026-02-17
 
 ### Added
