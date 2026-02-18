@@ -1,4 +1,4 @@
-# Promptmenot
+# PromptMeNot
 
 Detect and sanitize prompt injection attacks in user-submitted text. Protects Rails apps against:
 
