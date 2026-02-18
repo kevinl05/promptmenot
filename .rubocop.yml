@@ -22,6 +22,12 @@ Metrics/BlockLength:
 
 Layout/LineLength:
   Max: 120
+  Exclude:
+    - "lib/promptmenot/patterns/**/*"
+
+Metrics/AbcSize:
+  Exclude:
+    - "lib/promptmenot/detector.rb"
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes

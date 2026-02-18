@@ -57,7 +57,7 @@ RSpec.describe Promptmenot::Patterns::EncodingObfuscation do
       "The base64 image data is stored in the database",
       "Use unicode characters for internationalization",
       "The hex color code is #FF5733",
-      "Please decode the QR code on the package",
+      "Please decode the QR code on the package"
     ].each do |safe_text|
       it "allows: #{safe_text[0..50]}" do
         result = Promptmenot.detect(safe_text, sensitivity: :medium)

@@ -7,7 +7,7 @@ module Promptmenot
 
       register(
         name: :base64_payload,
-        regex: /\b(?:base64|decode|atob|decode64)\s*[:(]\s*["']?[A-Za-z0-9+\/]{20,}={0,2}["']?\s*\)?/i,
+        regex: %r{\b(?:base64|decode|atob|decode64)\s*[:(]\s*["']?[A-Za-z0-9+/]{20,}={0,2}["']?\s*\)?}i,
         sensitivity: :medium,
         confidence: :high
       )

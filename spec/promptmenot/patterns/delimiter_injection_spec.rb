@@ -29,7 +29,7 @@ RSpec.describe Promptmenot::Patterns::DelimiterInjection do
       "BEGIN SYSTEM PROMPT",
       "{{system}}",
       "<|begin_of_text|>",
-      "<|start_header_id|>",
+      "<|start_header_id|>"
     ].each do |injection|
       it "detects: #{injection[0..50]}" do
         result = Promptmenot.detect(injection, sensitivity: :medium)
@@ -44,7 +44,7 @@ RSpec.describe Promptmenot::Patterns::DelimiterInjection do
       "Please follow the instructions in the manual",
       "Use the context menu to access settings",
       "The assistant helped me with my homework",
-      "I began my system upgrade yesterday",
+      "I began my system upgrade yesterday"
     ].each do |safe_text|
       it "allows: #{safe_text[0..50]}" do
         result = Promptmenot.detect(safe_text, sensitivity: :medium)

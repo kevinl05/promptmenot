@@ -14,14 +14,14 @@ module Promptmenot
 
       register(
         name: :system_tag,
-        regex: /\[(?:SYSTEM|INST|\/INST|SYS|\/SYS)\]/i,
+        regex: %r{\[(?:SYSTEM|INST|/INST|SYS|/SYS)\]}i,
         sensitivity: :low,
         confidence: :high
       )
 
       register(
         name: :xml_system_tags,
-        regex: /<\/?(?:system|instructions?|prompt|context|assistant|user)\s*>/i,
+        regex: %r{</?(?:system|instructions?|prompt|context|assistant|user)\s*>}i,
         sensitivity: :low,
         confidence: :high
       )
@@ -42,7 +42,8 @@ module Promptmenot
 
       register(
         name: :triple_hash_separator,
-        regex: /^#{3,}\s*(?:system|instructions?|prompt|context|new\s+conversation)\s*#{3,}$/im,
+        regex: Regexp.new('^\#{3,}\s*(?:system|instructions?|prompt|context|new\s+conversation)\s*\#{3,}$',
+                          Regexp::IGNORECASE | Regexp::MULTILINE),
         sensitivity: :medium,
         confidence: :high
       )
@@ -56,7 +57,8 @@ module Promptmenot
 
       register(
         name: :markdown_system_header,
-        regex: /^#+\s*(?:system\s+(?:prompt|message|instructions?)|hidden\s+instructions?)\s*$/im,
+        regex: Regexp.new('^\#{1,}\s*(?:system\s+(?:prompt|message|instructions?)|hidden\s+instructions?)\s*$',
+                          Regexp::IGNORECASE | Regexp::MULTILINE),
         sensitivity: :medium,
         confidence: :high
       )

@@ -40,7 +40,7 @@ module Promptmenot
 
       register(
         name: :system_prompt_leak,
-        regex: /\b(?:reveal|show|display|print|output|repeat|echo)\s+(?:your\s+)?(?:system\s+)?(?:prompt|instructions?|rules?|guidelines?|directives?)\b/i,
+        regex: /\b(?:reveal|show|display|print|output|repeat|echo)\s+(?:me\s+)?(?:your\s+)?(?:system\s+)?(?:prompt|instructions?|rules?|guidelines?|directives?)\b/i,
         sensitivity: :medium,
         confidence: :high
       )

@@ -10,3 +10,9 @@
 *.rbc
 .byebug_history
 Gemfile.lock
+
+# Agentic setup
+agents.md
+CLAUDE.md
+.cursorrules
+.github/copilot-instructions.md

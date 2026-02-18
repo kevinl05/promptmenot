@@ -42,7 +42,7 @@ module Promptmenot
 
       register(
         name: :you_are_now_ai,
-        regex: /\byou\s+are\s+now\s+(a\s+)?(new|different|unrestricted|unfiltered|special|custom)\s+(ai|assistant|bot|model|system|chatbot)\b/i,
+        regex: /\byou\s+are\s+now\s+(an?\s+)?(\w+\s+)?(new|different|unrestricted|unfiltered|special|custom)\s+(\w+\s+)?(ai|assistant|bot|model|system|chatbot)\b/i,
         sensitivity: :medium,
         confidence: :high
       )
