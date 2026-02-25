@@ -17,6 +17,7 @@ require_relative "promptmenot/patterns/delimiter_injection"
 require_relative "promptmenot/patterns/encoding_obfuscation"
 require_relative "promptmenot/patterns/indirect_injection"
 require_relative "promptmenot/patterns/context_manipulation"
+require_relative "promptmenot/patterns/resource_extraction"
 require_relative "promptmenot/detector"
 require_relative "promptmenot/sanitizer"
 require_relative "promptmenot/validator"
@@ -81,7 +82,8 @@ module Promptmenot
         Patterns::DelimiterInjection,
         Patterns::EncodingObfuscation,
         Patterns::IndirectInjection,
-        Patterns::ContextManipulation
+        Patterns::ContextManipulation,
+        Patterns::ResourceExtraction
       ]
     end
 
