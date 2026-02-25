@@ -54,7 +54,7 @@ module Promptmenot
 
       register(
         name: :external_endpoint_exfiltration,
-        regex: /\b(?:send|post|submit|forward|transmit|upload|push|pipe)\s+(?:the\s+)?(?:results?|output|response|keys?|tokens?|credentials?|secrets?|data)\s+(?:to|at|via)\s+(?:https?:\/\/|webhook|endpoint|external)/i,
+        regex: %r{\b(?:send|post|submit|forward|transmit|upload|push|pipe)\s+(?:the\s+)?(?:results?|output|response|keys?|tokens?|credentials?|secrets?|data)\s+(?:to|at|via)\s+(?:https?://|webhook|endpoint|external)}i,
         sensitivity: :low,
         confidence: :high
       )
