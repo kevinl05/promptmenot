@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Ruby 3.0+](https://img.shields.io/badge/Ruby-3.0%2B-red.svg)](https://www.ruby-lang.org/)
 
-PromptMeNot is a Ruby gem that helps protect your application against prompt injection attacks. It scans user-submitted text for malicious patterns like instruction overrides, role manipulation, delimiter injection, encoding tricks, and more. With ~60 built-in detection patterns organized across 6 attack categories, it covers both direct injection (where users try to hijack your LLM through form inputs) and indirect injection (where malicious prompts are stored in user content like profiles or comments, waiting for other LLMs to scrape and execute them). It plugs into Rails with a simple ActiveModel validator or works standalone in any Ruby app, with configurable sensitivity levels so you can tune the trade-off between coverage and false positives.
+PromptMeNot is a Ruby gem that helps protect your application against prompt injection attacks. It scans user-submitted text for malicious patterns like instruction overrides, role manipulation, delimiter injection, encoding tricks, and more. With ~70 built-in detection patterns organized across 7 attack categories, it covers direct injection (where users try to hijack your LLM through form inputs), indirect injection (where malicious prompts are stored in user content like profiles or comments, waiting for other LLMs to scrape and execute them), and resource extraction (where attackers trick AI agents into transferring funds, leaking credentials, or exhausting compute resources). It plugs into Rails with a simple ActiveModel validator or works standalone in any Ruby app, with configurable sensitivity levels so you can tune the trade-off between coverage and false positives.
 
 ---
 
@@ -17,6 +17,7 @@ PromptMeNot is a Ruby gem that helps protect your application against prompt inj
 | **Indirect injection** | Malicious prompts stored in profiles, comments, or posts that target LLMs scraping or processing your site |
 | **Delimiter attacks** | Fake system tokens, ChatML tags, and XML/markdown boundaries injected into text |
 | **Obfuscation** | Base64-encoded payloads, zero-width characters, hex escapes, and other encoding tricks |
+| **Resource extraction** | Crypto transfer requests, wallet drain attacks, credential theft, financial urgency manipulation |
 
 ### What it doesn't do
 
@@ -151,6 +152,7 @@ Sensitivity controls which patterns are active. Each pattern declares a minimum 
 | `encoding_obfuscation` | Base64 payloads, zero-width chars, hex escapes | ~10 |
 | `indirect_injection` | "Dear AI", "if you are an LLM", "note to chatbot" | ~10 |
 | `context_manipulation` | `===RESET===`, "the above is a test", prompt leaking | ~8 |
+| `resource_extraction` | "transfer 100 SOL to", credential theft, wallet drain, endpoint exfiltration | ~10 |
 
 ## False Positive Mitigation
 
@@ -215,7 +217,7 @@ end
 <summary><b>What's the performance like?</b></summary>
 <br>
 
-At default sensitivity (`:medium`), roughly 30-40 patterns are active. Each is a single regex scan, so detection is fast on typical user input. The `max_length` config (default: 50,000 characters) truncates excessively long inputs before scanning to prevent regex backtracking on adversarial payloads.
+At default sensitivity (`:medium`), roughly 40-50 patterns are active. Each is a single regex scan, so detection is fast on typical user input. The `max_length` config (default: 50,000 characters) truncates excessively long inputs before scanning to prevent regex backtracking on adversarial payloads.
 
 </details>
 

@@ -77,6 +77,7 @@ Patterns live in `lib/promptmenot/patterns/` and are organized by attack type:
 | Encoding obfuscation | `encoding_obfuscation.rb` | Base64 payloads, hex escapes, zero-width chars |
 | Indirect injection | `indirect_injection.rb` | "Dear AI", "if you are an LLM" |
 | Context manipulation | `context_manipulation.rb` | `===RESET===`, prompt leaking attempts |
+| Resource extraction | `resource_extraction.rb` | Crypto transfers, wallet drains, credential theft, endpoint exfiltration |
 
 If your pattern doesn't fit any existing category, open an issue to discuss adding a new one.
 
