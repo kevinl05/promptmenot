@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.1] - 2026-02-25
+
+### Fixed
+
+- RuboCop `Style/RegexpLiteral` offense in `external_endpoint_exfiltration` pattern
+
 ## [0.2.0] - 2026-02-25
 
 ### Added
