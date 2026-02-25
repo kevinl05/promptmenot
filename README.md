@@ -9,6 +9,11 @@ PromptMeNot is a Ruby gem that helps protect your application against prompt inj
 
 ---
 
+> **New in v0.2: Resource Extraction Detection**
+> AI agents are managing wallets, executing trades, and holding API keys. In February 2026, [an autonomous trading bot sent $250K in tokens to a stranger](https://cybernews.com/ai-news/open-ai-agent-generous-donor-accidentally-send-entire-crypto-lobstar-wild/) because nothing validated what it was about to do. This release adds 10 patterns that catch attempts to drain wallets, steal credentials, manipulate agents with fake urgency, and exfiltrate secrets to external endpoints. If your app has an AI agent anywhere near funds or keys, this is the category you want active. [Pattern details](#pattern-categories) | [Changelog](CHANGELOG.md)
+
+---
+
 ### What it catches
 
 | Attack type | Description |
